@@ -31,7 +31,7 @@ public class CountriesService {
         return instance;
     }
 
-    public Single<List<CountryModel>> getCounties(){
+    public Single<List<CountryModel>> getCountries(){
         return mCountriesApi.getCountriesList();
     }
 }
