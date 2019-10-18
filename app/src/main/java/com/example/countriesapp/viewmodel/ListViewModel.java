@@ -3,11 +3,14 @@ package com.example.countriesapp.viewmodel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.countriesapp.di.DaggerApiComponent;
 import com.example.countriesapp.model.CountriesService;
 import com.example.countriesapp.model.CountryModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,9 +25,16 @@ public class ListViewModel extends ViewModel {
     public MutableLiveData<Boolean> countryLoadError = new MutableLiveData<Boolean>();
     public MutableLiveData<Boolean> loading = new MutableLiveData<Boolean>();
 
-    private CountriesService mCountriesService = CountriesService.getInstance();
+    @Inject
+    public CountriesService mCountriesService;
+
     private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
+
+    public ListViewModel(){
+        super();
+        DaggerApiComponent.create().inject(this);
+    }
 
     public void refresh(){
 
